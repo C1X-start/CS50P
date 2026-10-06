@@ -35,7 +35,7 @@ except ValueError:
 
 ### 新手必踩坑
 
-```
+```python
 try:
     x = int(input("请输入数字："))
 except ValueError:
@@ -46,7 +46,7 @@ print(f"你输入的是{x}")  # ❌ 输入错误时x根本没创建，直接报N
 
 ### 正确写法
 
-```
+```python
 try:
     x = int(input("请输入数字："))
 except ValueError:
@@ -61,7 +61,7 @@ else:
 
 明知可能出错，但不需要提示、不需要处理时，用 `pass` 占位：
 
-```
+```python
 try:
     x = int(input())
 except ValueError:
@@ -74,7 +74,7 @@ except ValueError:
 
 搭配 `while True` 无限循环，直到用户输入正确才退出：
 
-```
+```python
 while True:
     try:
         x = int(input("请输入整数："))
