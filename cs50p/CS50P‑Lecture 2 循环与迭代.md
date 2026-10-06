@@ -47,7 +47,7 @@ print("meow\n" * 3)
 
 用于**固定次数**的循环，搭配 `range()` 生成整数序列。
 
-```
+```python
 for i in range(3):
     print("meow")
 ```
