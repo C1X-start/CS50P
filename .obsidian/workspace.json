@@ -138,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "cs50p/CS50P‑Lecture 3 函数进阶与异常处理.md",
+                "file": "cs50p/CS50P‑Lecture 6 文件IO.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               },
@@ -181,7 +181,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "欢迎.md",
+                "file": "cs50p/CS50P‑Lecture 6 文件IO.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -219,7 +219,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "20ae7f15f244b24c",
+  "active": "a559748a12b65ba3",
   "lastOpenFiles": [
     "cs50p/CS50P‑Lecture 6 文件IO.md",
     "cs50p/CS50P‑Lecture 3 函数进阶与异常处理.md",
