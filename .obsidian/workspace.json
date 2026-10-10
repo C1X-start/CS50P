@@ -14,11 +14,21 @@
               "type": "markdown",
               "state": {
                 "file": "cs50p/CS50P‑Lecture 6 文件IO.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "CS50P‑Lecture 6 文件IO"
+            }
+          },
+          {
+            "id": "420e85c0d55efda5",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
             }
           }
         ]
@@ -209,17 +219,18 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e87aa49c492f9bae",
+  "active": "20ae7f15f244b24c",
   "lastOpenFiles": [
-    "cs50p/CS50P‑Lecture 3 函数进阶与异常处理.md",
-    "cs50p/CS50P‑Lecture 2 循环与迭代.md",
     "cs50p/CS50P‑Lecture 6 文件IO.md",
-    "cs50p/CS50P-Lecture 5 单元测试，测试代码.md",
-    "cs50p/CS50P-Lecture 4 库.md",
+    "cs50p/CS50P‑Lecture 3 函数进阶与异常处理.md",
     "cs50p/CS50P-Lecture 0 变量、字符串与函数基础.md",
-    "cs50p/Python 浮点数精度深度解析.md",
-    "cs50p/CS50P‑Lecture 1 条件与循环.md",
+    "cs50p/CS50P-Lecture 4 库.md",
     "cs50p/python错题集.md",
+    "未命名.md",
+    "cs50p/Python 浮点数精度深度解析.md",
+    "cs50p/CS50P‑Lecture 2 循环与迭代.md",
+    "cs50p/CS50P-Lecture 5 单元测试，测试代码.md",
+    "cs50p/CS50P‑Lecture 1 条件与循环.md",
     "未命名.base",
     "项目进度汇报-2026-09-20.md",
     "CS50P｜Lecture 2 循环、列表与字典.md",

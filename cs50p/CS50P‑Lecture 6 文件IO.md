@@ -1,150 +1,323 @@
-open函数会返还一个特殊的值，用这个值去读取文件，所以需要变量去接收,open函数中如果文件不存在还会自动创建这个文件，括号内第一个参数为文件名，第二个参数为对文件进行的操作eg: "r"read读    "a"append添加
-"w"write写与添加不同，写回直接覆盖之前的内容
 
-with指定在某个上下文环境中，打开文件并自动关闭他
 
-```python
+> 🔗 前置课程：[[CS50P-Lecture 5 单元测试，测试代码]]
+
+## 一、基础文件操作
+
+### 1. open 函数与文件模式
+
+`open()` 函数返回一个**文件对象**，用于读写操作，需要用变量接收。 第二个参数指定操作模式：
+
+|模式|全称|作用|文件不存在时|
+|---|---|---|---|
+|`"r"`|read|只读模式（默认）|抛出报错|
+|`"w"`|write|覆盖写入|自动创建文件|
+|`"a"`|append|追加写入（末尾添加）|自动创建文件|
+
+> ⚠️ 注意：`"w"` 会直接清空覆盖原有全部内容，慎用。
+
+### 2. 两种打开方式
+
+#### 推荐：with 上下文管理器
+
+自动关闭文件，即使代码中途报错也会正常关闭，避免资源泄漏，是CS50推荐写法。
+
+```
 names = input("who?")
-
-with open("names.txt","a") as file:
-
-    file.write(f"{names}\n")
+with open("names.txt", "a") as file:
+    file.write(f"{names}\n")
 ```
 
-另一种关闭方式用file.close()
-```python
+#### 手动 close（不推荐）
+
+需要手动调用关闭，忘记关闭会造成文件资源占用。
+
+```
 names = input("who?")
-
-file = open("names.txt","a")
-
+file = open("names.txt", "a")
 file.write(f"{names}\n")
-
 file.close()
 ```
 
-读取文件
-```python
-with open("names.txt","r") as file:
+### 3. 读取文件的几种方式
 
-    lines = file.readlines()
+#### 方式1：readlines() 读取所有行
+
+返回一个列表，每个元素对应文件中的一行。
+
+```
+with open("names.txt", "r") as file:
+    lines = file.readlines()
 
 for line in lines:
-
-    print("hello",line.rstrip())
+    print("hello", line.rstrip())
 ```
-line.rstrip()去除末尾多余的换行也可以用end=""
-注意：readline和readlines并不一样
-有s的是读取每一行，而没有s的是只读取第一行并且一个字母一个字母的读取
 
-另一种读取文件的方法
-```python
-with open("names.txt","r") as file:
+- `line.rstrip()`：去除行尾的换行符 `\n`；也可以用 `print("hello", line, end="")` 实现同样效果。
 
-    for line in file:
+#### 方式2：直接迭代文件对象
 
-        print("hello",line.rstrip())
+文件对象本身是可迭代的，逐行遍历，大文件更省内存。
+
 ```
-直接使用一个for循环去读取文件中的每一行
+with open("names.txt", "r") as file:
+    for line in file:
+        print("hello", line.rstrip())
+```
 
-如果想要对文档进行排序怎么办，就需要先建一个列表，将文档中的内容拷贝进去一份，并对列表进行排序，最后再打印列表即可，就像是c中引入了一个临时变量
-```python
+#### 易混区分：read / readline / readlines
+
+|方法|返回值|作用|
+|---|---|---|
+|`file.read()`|单个字符串|一次性读取文件全部内容|
+|`file.readline()`|单个字符串|只读取一行内容|
+|`file.readlines()`|列表|读取所有行，每行是列表一个元素|
+
+### 4. 写入文件
+
+使用 `文件对象.write(内容)` 写入，内容必须是字符串类型，换行需要手动加 `\n`。
+
+---
+
+## 二、文件内容排序
+
+`sorted()` 可以对任何可迭代对象排序，不会修改原文件，只返回排序后的结果。
+
+### 1. 读取到列表再排序（推荐，灵活）
+
+先把内容存入列表，对列表排序后输出。
+
+```
 names = []
-
-with open("names.txt","r") as file:
-
-    for name in file:
-
-        names.append(name.rstrip())
+with open("names.txt", "r") as file:
+    for name in file:
+        names.append(name.rstrip())
 
 for line in sorted(names):
-
-    print("hello,",line)
+    print("hello,", line)
 ```
-sorted()可以按照字母顺序，整理列表
 
-还有更简单的排序方法
-```python
-with open("names.txt","r") as file:
+### 2. 直接对文件对象排序
 
-    for line in sorted(file):
+文件对象可直接迭代排序，写法更简洁。
 
-        print("hello,",line.rstrip())
 ```
-直接对文件进行排序，当然这不会改变源文件
-```python
-sorted(file,reverse=True)
+with open("names.txt", "r") as file:
+    for line in sorted(file):
+        print("hello,", line.rstrip())
 ```
-sorted函数中第一个参数是可迭代对象即可以被循环遍历的东西，reverse默认=False，如果改成True就会从z~a反向排序
 
-程序员用CSV格式“逗号分隔值”Comma-Separated Values
-```python
-with open ("students.csv") as file:
+### 3. sorted 函数补充
 
-    for line in sorted(file):
+- 第一个参数：可迭代对象（列表、文件对象等）
+- `reverse=False`：默认升序（a~z）；设为 `True` 则降序（z~a）
+    
+    ```
+    sorted(file, reverse=True)
+    ```
+    
+- `key=函数`：指定排序依据，字典排序会用到。
 
-        row = line.rstrip().split(",")    #split分开后的值储存在一个列表    
+---
 
-        print(f"{row[0]} is in {row[1]}")
+## 三、CSV 文件处理
+
+CSV 即逗号分隔值（Comma-Separated Values），是表格数据常用存储格式。
+
+### 1. 手动 split 拆分（仅简单场景）
+
+每行没有内嵌逗号时，可以用 `split(",")` 拆分。
+
 ```
-csv文件后面不需要加上以什么方式打开
-split分开后的值储存在一个列表    
-
-```python
-name,house = line.rstrip().split(",")
+with open("students.csv") as file:
+    for line in sorted(file):
+        name, house = line.rstrip().split(",")
+        print(f"{name} is in {house}")
 ```
-如果明知道split分开后会有两个值，就可以直接赋个两个变量
 
+> 局限：如果字段内容里本身包含逗号（用引号包裹），split 会拆分错误。
 
-之前是以每一行的第一个字母来排序的，现在想以名字或学院来排序
-```python
-list = []
+### 2. csv 标准库（推荐）
 
-with open ("students.csv") as file:
+Python 内置 `csv` 库，专门处理CSV格式，自动识别引号包裹的逗号。
 
-    for line in file:
+#### csv.reader：按列表读取
 
-        name,house = line.rstrip().split(",")
+每一行返回一个列表，按索引取值。
 
-        student = {"name" : name, "house":house}
-        #创建字典，并把两个变量作为值
-
-        list.append(student)
-
-  
-
-def  get_name(a):
-
-    return a["name"]
-
-  
-
-for stu in sorted(list,key=get_name):
-
-    print(f"{stu['name']} is in {stu['house']}")
 ```
-sorted函数中的key=.... 其实质是sorted函数在遍历list时，遇到第一个元素即字典，会把这个字典赋给get_name这个函数中的参数
-get_name后面不能加括号，这样才能调用函数
+import csv
 
-还可以更简便，不去新写函数  、匿名函数
-```python
-list = []
+students = []
+with open("students.csv") as file:
+    reader = csv.reader(file)
+    for name, house in reader:
+        students.append({"name": name, "house": house})
 
-with open ("students.csv") as file:
-
-    for line in file:
-
-        name,house = line.rstrip().split(",")
-
-        student = {"name" : name, "house":house}
-
-        list.append(student)
-
-  
-  
-
-for stu in sorted(list,key=lambda a:a["name"]):
-
-    print(f"{stu['name']} is in {stu['house']}")
+for stu in sorted(students, key=lambda a: a["name"]):
+    print(f"{stu['name']} is in {stu['house']}")
 ```
-key=lambda a : a["name"]
-lambda是一个关键词 a是参数，冒号后面是要返回的值
+
+#### csv.DictReader：按字典读取（带表头）
+
+CSV第一行作为表头，自动成为字典的键，按列名取值，可读性更强。
+
+```
+import csv
+
+students = []
+with open("students.csv") as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        students.append({
+            "name": row["name"],
+            "house": row["house"],
+            "title": row["title"]
+        })
+
+for stu in sorted(students, key=lambda a: a["name"]):
+    print(f"{stu['name']} is in {stu['house']} and title is {stu['title']}")
+```
+
+对应CSV文件示例：
+
+```
+name,house,title
+Ron,"Gran,111",b
+Harry,Gran,c
+Hemin,Gran,d
+Draco,Slai,e
+```
+
+### 3. 写入 CSV 文件
+
+#### csv.writer：按列表写入
+
+```
+import csv
+
+name = input("what's your name?")
+home = input("where are you from")
+
+with open("write1.csv", "a", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow([name, home])
+```
+
+> 小技巧：加 `newline=""` 可以避免Windows下写入出现多余空行。
+
+#### csv.DictWriter：按字典写入
+
+指定列顺序，按字典写入，适合多列场景。
+
+```
+import csv
+
+name = input("what's your name?")
+home = input("where are you from")
+
+with open("write1.csv", "a", newline="") as file:
+    writer = csv.DictWriter(file, fieldnames=["name", "home"])
+    # 首次写入需要加这行写入表头
+    # writer.writeheader()
+    writer.writerow({"name": name, "home": home})
+```
+
+---
+
+## 四、排序进阶：字典排序与 key 参数
+
+当列表元素是字典时，需要通过 `key` 参数指定排序依据的字段。
+
+### 1. 自定义函数作为 key
+
+```
+students = []
+with open("students.csv") as file:
+    for line in file:
+        name, house = line.rstrip().split(",")
+        student = {"name": name, "house": house}
+        students.append(student)
+
+def get_name(a):
+    return a["name"]
+
+for stu in sorted(students, key=get_name):
+    print(f"{stu['name']} is in {stu['house']}")
+```
+
+- 原理：`sorted` 遍历列表时，会把每个元素传给 `get_name` 函数，用返回值作为排序依据。
+- 注意：`key=` 后面只写函数名，**不要加括号**，加括号会直接执行函数导致报错。
+
+### 2. lambda 匿名函数（更简洁）
+
+单行函数可以用 `lambda` 简写，效果完全一致。
+
+```
+for stu in sorted(students, key=lambda a: a["name"]):
+    print(f"{stu['name']} is in {stu['house']}")
+```
+
+语法：`lambda 参数: 返回值`
+
+---
+
+## 五、PIL 图像处理（生成GIF）
+
+PIL 是Python第三方图像处理库，安装包名为 `pillow`，代码导入名为 `PIL`。
+
+### 1. 安装与导入
+
+```
+pip install pillow
+```
+
+```
+import sys
+from PIL import Image
+```
+
+> ⚠️ 经典坑：安装包名 `pillow` ≠ 导入名 `PIL`；`Image` 类首字母必须大写。
+
+### 2. 生成GIF示例
+
+通过命令行传入多张图片，合成动图。
+
+```
+import sys
+from PIL import Image
+
+images = []
+# 遍历命令行参数（跳过脚本文件名）
+for arg in sys.argv[1:]:
+    img = Image.open(arg)
+    images.append(img)
+
+# 用第一张图作为基底，追加后续图片
+images[0].save(
+    "cat.gif",
+    save_all=True,
+    append_images=[images[1]],
+    duration=200,
+    loop=0
+)
+```
+
+### 3. 参数说明
+
+- `save_all=True`：保存所有帧，不是只保存第一帧
+- `append_images=[]`：要追加的图片列表
+- `duration=200`：每帧停留时间，单位毫秒
+- `loop=0`：循环次数，0表示无限循环
+
+---
+
+## 六、常见易错点汇总
+
+1. **变量名覆盖内置关键字**：不要用 `list`、`file`、`str` 等Python内置名称做变量名，建议用 `students`、`names_list` 替代。
+2. **文件模式记错**：`"r"` 模式文件不存在会报错，只有 `"w"`/`"a"` 会自动创建。
+3. **写入忘记加换行**：`write()` 不会自动加 `\n`，需要手动补充。
+4. **sorted 的 key 加括号**：`key=函数名` 即可，加括号会立即执行，导致报错。
+5. **PIL 大小写错误**：`from PIL import Image`，PIL和Image都要注意大小写。
+6. **CSV写入空行**：Windows下打开文件加 `newline=""` 可避免。
+7. **直接修改原文件**：`sorted()` 只返回排序后的结果，不会修改源文件。

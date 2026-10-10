@@ -9,6 +9,22 @@
       "path": "cs50p/CS50P‑Lecture 3 函数进阶与异常处理.md"
     },
     {
+      "basename": "CS50P-Lecture 0 变量、字符串与函数基础",
+      "path": "cs50p/CS50P-Lecture 0 变量、字符串与函数基础.md"
+    },
+    {
+      "basename": "CS50P-Lecture 4 库",
+      "path": "cs50p/CS50P-Lecture 4 库.md"
+    },
+    {
+      "basename": "python错题集",
+      "path": "cs50p/python错题集.md"
+    },
+    {
+      "basename": "Python 浮点数精度深度解析",
+      "path": "cs50p/Python 浮点数精度深度解析.md"
+    },
+    {
       "basename": "CS50P‑Lecture 2 循环与迭代",
       "path": "cs50p/CS50P‑Lecture 2 循环与迭代.md"
     },
@@ -17,28 +33,8 @@
       "path": "cs50p/CS50P-Lecture 5 单元测试，测试代码.md"
     },
     {
-      "basename": "CS50P-Lecture 4 库",
-      "path": "cs50p/CS50P-Lecture 4 库.md"
-    },
-    {
-      "basename": "CS50P-Lecture 0 变量、字符串与函数基础",
-      "path": "cs50p/CS50P-Lecture 0 变量、字符串与函数基础.md"
-    },
-    {
-      "basename": "Python 浮点数精度深度解析",
-      "path": "cs50p/Python 浮点数精度深度解析.md"
-    },
-    {
       "basename": "CS50P‑Lecture 1 条件与循环",
       "path": "cs50p/CS50P‑Lecture 1 条件与循环.md"
-    },
-    {
-      "basename": "python错题集",
-      "path": "cs50p/python错题集.md"
-    },
-    {
-      "basename": "项目进度汇报-2026-09-20",
-      "path": "项目进度汇报-2026-09-20.md"
     }
   ],
   "omittedPaths": [],
