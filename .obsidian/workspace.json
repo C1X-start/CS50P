@@ -37,8 +37,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CS50P‑Lecture 7 正则表达式.md",
-                "mode": "source",
+                "file": "cs50p/CS50P‑Lecture 7 正则表达式.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -237,7 +237,7 @@
   "active": "4c0cee9c505c4ff1",
   "lastOpenFiles": [
     "cs50p/CS50P‑Lecture 6 文件IO.md",
-    "CS50P‑Lecture 7 正则表达式.md",
+    "cs50p/CS50P‑Lecture 7 正则表达式.md",
     "cs50p/CS50P‑Lecture 3 函数进阶与异常处理.md",
     "cs50p/CS50P-Lecture 0 变量、字符串与函数基础.md",
     "cs50p/CS50P-Lecture 4 库.md",
